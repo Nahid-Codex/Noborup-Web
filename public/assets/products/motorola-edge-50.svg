@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <defs>
+    <linearGradient id="motoBg" x1="0" y1="0" x2="800" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#18111A"/>
+      <stop offset="100%" stop-color="#2D162C"/>
+    </linearGradient>
+    <linearGradient id="motoBody" x1="230" y1="80" x2="430" y2="510" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EC4899"/>
+      <stop offset="50%" stop-color="#DB2777"/>
+      <stop offset="100%" stop-color="#9D174D"/>
+    </linearGradient>
+    <linearGradient id="motoScreen" x1="380" y1="70" x2="570" y2="510" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F43F5E"/>
+      <stop offset="50%" stop-color="#4C1D95"/>
+      <stop offset="100%" stop-color="#090D16"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#motoBg)"/>
+  <circle cx="400" cy="300" r="240" fill="#EC4899" fill-opacity="0.12"/>
+  <!-- Back Phone -->
+  <rect x="235" y="80" width="195" height="430" rx="30" fill="url(#motoBody)" stroke="#F472B6" stroke-width="3"/>
+  <rect x="250" y="96" width="82" height="110" rx="20" fill="#BE185D" stroke="#F472B6" stroke-width="2"/>
+  <circle cx="291" cy="126" r="20" fill="#18111A" stroke="#FBCFE8" stroke-width="3"/>
+  <circle cx="291" cy="176" r="18" fill="#18111A" stroke="#FBCFE8" stroke-width="3"/>
+  <circle cx="318" cy="152" r="5" fill="#FEF08A"/>
+  <circle cx="332" cy="285" r="18" fill="#9D174D"/>
+  <text x="332" y="292" text-anchor="middle" fill="#FCE7F3" font-family="sans-serif" font-size="18" font-weight="700">M</text>
+  <!-- Front Curved Display Phone -->
+  <rect x="375" y="65" width="198" height="440" rx="30" fill="#0F172A" stroke="#F472B6" stroke-width="3"/>
+  <rect x="383" y="73" width="182" height="424" rx="24" fill="url(#motoScreen)"/>
+  <circle cx="474" cy="90" r="5" fill="#090D16"/>
+  <text x="474" y="275" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="19" font-weight="700">EDGE 50 FUSION</text>
+  <text x="474" y="300" text-anchor="middle" fill="#FBCFE8" font-family="sans-serif" font-size="12" font-weight="600">144HZ CURVED pOLED</text>
+  <text x="400" y="555" text-anchor="middle" fill="#F9A8D4" font-family="sans-serif" font-size="14" font-weight="600" letter-spacing="3">CERTIFIED PRE-OWNED · 25-POINT TESTED</text>
+</svg>

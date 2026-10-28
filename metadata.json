@@ -1,0 +1,6 @@
+{
+  "name": "Noborup — Smartphones, Accessories & Servicing",
+  "description": "Official e-commerce store for Noborup in Mujibnagar, Meherpur. Shop new & certified pre-owned iPhones, Android smartphones, original accessories, smartwatches, and expert mobile servicing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,137 @@
+===========================================================================
+NOBORUP (নবরূপ — আপনার প্রয়োজন, আমাদের সমাধান)
+FRONTEND & BACKEND ARCHITECTURE AND TECHNOLOGY STACK GUIDE
+Developed by: Nahid Hasan
+Location: Kedargonj Bazar, Mujibnagar, Meherpur
+===========================================================================
+
+---------------------------------------------------------------------------
+1. TECHNOLOGY STACK USED IN THIS WEBSITE (ব্যবহৃত টেকনোলজি সমূহ)
+---------------------------------------------------------------------------
+
+A. FRONTEND TECHNOLOGIES (ফ্রন্টএন্ড টেকনোলজি):
+   1. React 19 (v19.0.1)
+      - Modern component-based UI library for building fast, interactive user interfaces without page reloads (Single Page Application - SPA).
+   2. TypeScript (v7.0.2)
+      - Strongly-typed JavaScript that ensures type safety for products, orders, users, cart items, and database records (`src/types.ts`).
+   3. React Router DOM (v7.18.5)
+      - Client-side routing for instant navigation between pages (`/`, `/catalog`, `/product/:id`, `/services`, `/videos`, `/contact`, `/cart`, `/checkout`, `/account`, `/admin`).
+   4. Tailwind CSS v4 (`@tailwindcss/vite` v4.3.3)
+      - Utility-first CSS framework used for custom styling, responsive design (Mobile, Tablet, Desktop breakpoints), and Dark/Light mode support.
+   5. Lucide React (`lucide-react` v0.546.0)
+      - Clean, lightweight vector icons used across navigation, product cards, admin panels, and status badges.
+   6. Google Fonts (`Space Grotesk`, `Plus Jakarta Sans`, `JetBrains Mono`)
+      - Typography system pairing editorial headlines with readable body text and monospace numeric pricing (৳ BDT).
+
+B. BACKEND & CLOUD SERVICES (ব্যাকএন্ড ও ডাটাবেস টেকনোলজি):
+   1. Firebase Firestore (Serverless NoSQL Cloud Database - `firebase` v13.1.0)
+      - Real-time cloud database hosted on Google Cloud that stores and syncs all website data (`products`, `categories`, `orders`, `serviceBookings`, `reviews`, `videos`, `users`, `settings`).
+   2. Firebase Authentication (Google Identity Platform)
+      - Handles user sign-up, email/password login, Google One-Click Sign-In (`GoogleAuthProvider`), session persistence, and Admin role verification.
+   3. Firestore Security Rules (`firestore.rules`)
+      - Server-side access control rules enforced directly by Google Cloud to protect database collections, ensuring only authorized Admins can add/edit/delete products, categories, or store settings, and customers can only manage their own orders and profiles.
+
+C. BUILD & DEPLOYMENT TOOLS (বিল্ড এবং ডেপ্লয়মেন্ট টুলস):
+   1. Vite (v8.3.0)
+      - Next-generation frontend build tool and development server that bundles TypeScript, React JSX, and Tailwind CSS into optimized static assets (`dist/`).
+   2. LocalStorage Persistence
+      - Stores shopping cart (`noborup_cart`), wishlist (`noborup_wishlist`), theme preference (`noborup_theme`), and fallback cache on the user's browser.
+
+
+---------------------------------------------------------------------------
+2. HOW THE FRONTEND WORKS (ফ্রন্টএন্ড কীভাবে কাজ করে?)
+---------------------------------------------------------------------------
+
+1. Component Architecture (`src/components/` & `src/pages/`):
+   - Layout Layer:
+     * `Navbar.tsx`: Sticky header with live search, desktop/mobile navigation, dark/light mode toggle, wishlist counter, cart drawer badge, and user profile avatar.
+     * `Footer.tsx`: Store address, phone numbers, policy modals (Shipping, Return, Warranty), WhatsApp quick support, and social links.
+   - Page Views (`src/pages/`):
+     * `HomePage.tsx`: Minimal hero section, category spotlight, featured smartphones, Facebook reels showcase, happy customer handovers, and repair booking CTA.
+     * `CatalogPage.tsx`: Dynamic filtering by category (`iPhone`, `Android`, `Accessories`, `Smartwatch`), condition (`New`, `Used`), price sorting, and instant search.
+     * `ProductDetailPage.tsx`: Multi-image gallery, variant selector (Storage/Color), pre-owned battery health & condition metrics, related items, and verified customer reviews.
+     * `ServicesPage.tsx`: Online mobile servicing & repair appointment booking form with instant status tracking.
+     * `VideosPage.tsx`: Embedded Facebook Reels player and social video gallery.
+     * `CartPage.tsx` & `CheckoutPage.tsx`: Full cart calculation, promo code discounts, Cash on Delivery / Showroom Pickup / bKash / Nagad checkout, and WhatsApp direct order integration.
+     * `AccountPage.tsx`: Customer profile management, custom profile picture upload (Base64/URL), order history, printable invoices, and repair booking tracker.
+     * `AdminDashboardPage.tsx`: Complete store management dashboard with 8 tabs (Overview, Products, Categories, Orders, Service Bookings, Videos/Reels, Reviews, Store Settings).
+
+2. Central State Management (`src/context/StoreContext.tsx`):
+   - Acts as the single source of truth connecting the React UI to Firebase Backend services.
+   - Provides hooks (`useStore()`) to every component so any change in products, cart, orders, theme, or user authentication immediately updates the screen without refreshing the browser.
+
+3. Responsive Design System:
+   - Mobile (`320px–639px`): Hamburger slide-down menu, 2-column compact product cards, touch-friendly controls, and horizontal scrollable admin tabs.
+   - Tablet (`640px–1023px`): 2-to-3 column grids and adaptive filter drawers.
+   - Desktop (`1024px+`): Full top navigation bar (with streamlined links), 3-to-4 column product grids, sticky filter sidebars, and wide data tables.
+
+
+---------------------------------------------------------------------------
+3. HOW THE BACKEND & DATABASE WORK (ব্যাকএন্ড ও ডাটাবেস কীভাবে কাজ করে?)
+---------------------------------------------------------------------------
+
+Instead of a traditional slow PHP/MySQL server, Noborup uses a modern **Serverless Real-Time Architecture** powered by **Google Firebase**:
+
+1. Real-Time Database Synchronization (`onSnapshot`):
+   - When the website loads, `StoreContext.tsx` opens real-time listeners (`onSnapshot`) to Firestore collections:
+     * `products`: All phones, accessories, prices, stock counts, and specs.
+     * `categories`: Store categories and icons.
+     * `videos`: Facebook Reels links and titles.
+     * `reviews`: Customer ratings and product feedback.
+     * `settings/global`: Store name, phone numbers, WhatsApp number, delivery fees, and social URLs.
+   - Whenever the Admin adds a new phone, changes a price, or updates stock in the Admin Panel, Firestore pushes the update live to all connected visitors in milliseconds.
+
+2. Automatic Database Seeding:
+   - On first launch, if the Firestore database is empty, the app automatically seeds initial products, categories, store settings, and reels so the storefront is immediately functional.
+
+3. Authentication & Role-Based Access Control (RBAC):
+   - Users log in via Firebase Authentication (`signInWithEmailAndPassword`, `createUserWithEmailAndPassword`, or `signInWithPopup` with Google).
+   - User profiles are saved in the `users/{uid}` collection in Firestore, including `name`, `email`, `phone`, `address`, `photoURL`, and `role` (`customer` or `admin`).
+   - Admin privileges are granted to verified admin emails (`realnahidhasan1@gmail.com` / `admin@noborup.com`) or users with `role: "admin"` in Firestore.
+
+4. Server-Side Security Rules (`firestore.rules`):
+   - Public Read Access: Anyone visiting the website can browse products, categories, approved reviews, videos, and store settings.
+   - Protected Customer Writes: Customers can create new orders (`orders` collection) and repair bookings (`serviceBookings` collection) and update their own user profile.
+   - Strict Admin Access: Only authenticated Admins can create, update, or delete products, categories, videos, store settings, or change order/service statuses.
+
+
+---------------------------------------------------------------------------
+4. STEP-BY-STEP WORKFLOWS (পুরো সিস্টেমটি কীভাবে একসাথে কাজ করে?)
+---------------------------------------------------------------------------
+
+1. Product Purchase / Order Workflow:
+   Customer adds item to Cart -> Enters delivery info & payment method (COD / Showroom Pickup / bKash / Nagad) on Checkout Page -> `placeOrder()` saves order document to Firestore `orders` collection & deducts product stock -> Customer can view order status & print invoice in `AccountPage` -> Admin sees the new order live in `AdminDashboardPage` and updates status (`Pending` -> `Confirmed` -> `Shipped` -> `Delivered`).
+
+2. Mobile Repair Booking Workflow:
+   Customer fills out device model, issue type, and preferred date on `ServicesPage` -> `createServiceBooking()` saves ticket to Firestore `serviceBookings` collection -> Admin reviews ticket in Admin Panel and updates status (`Pending` -> `In Progress` -> `Completed`).
+
+3. Profile Picture & Account Update Workflow:
+   User uploads an image file on `AccountPage` -> Frontend compresses and converts the image to a lightweight Data URL or saves the external URL -> `updateUserProfile()` updates both Firebase Auth and the `users/{uid}` document in Firestore -> Profile picture immediately appears in the top Navbar and Account page.
+
+
+---------------------------------------------------------------------------
+5. PROJECT FOLDER STRUCTURE (ফোল্ডার স্ট্রাকচার)
+---------------------------------------------------------------------------
+/
+├── index.html                  # Main HTML entry point, SEO meta tags & fonts
+├── package.json                # Project dependencies and build scripts
+├── vite.config.ts              # Vite bundler & Tailwind CSS v4 configuration
+├── firebase.ts                 # Firebase SDK initialization (Firestore & Auth)
+├── firestore.rules             # Cloud Firestore security & permission rules
+├── public/                     # Static assets, downloadable guides, sitemap
+└── src/
+    ├── main.tsx                # React DOM root mounting
+    ├── App.tsx                 # Route definitions & layout wrapper
+    ├── index.css               # Tailwind CSS imports & custom utilities
+    ├── types.ts                # TypeScript interfaces for all data models
+    ├── data/
+    │   └── initialData.ts      # Default products, categories, reels & settings
+    ├── context/
+    │   └── StoreContext.tsx    # State management, Auth & Firestore CRUD logic
+    ├── components/
+    │   ├── layout/             # Navbar, Footer
+    │   └── products/           # ProductCard, QuickViewModal, CompareDrawer
+    └── pages/                  # Home, Catalog, ProductDetail, Services,
+                                # Videos, Contact, Cart, Checkout, Account,
+                                # Login, AdminLogin, AdminDashboard
+===========================================================================

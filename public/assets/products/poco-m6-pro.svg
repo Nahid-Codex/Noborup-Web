@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <defs>
+    <linearGradient id="pocoBg" x1="0" y1="0" x2="800" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#111312"/>
+      <stop offset="100%" stop-color="#1F2421"/>
+    </linearGradient>
+    <linearGradient id="pocoScreen" x1="380" y1="70" x2="570" y2="510" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EAB308"/>
+      <stop offset="50%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#090D16"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#pocoBg)"/>
+  <circle cx="400" cy="300" r="240" fill="#EAB308" fill-opacity="0.1"/>
+  <!-- Back Phone with POCO full-width camera visor -->
+  <rect x="235" y="80" width="198" height="430" rx="28" fill="#1E293B" stroke="#475569" stroke-width="3"/>
+  <rect x="247" y="94" width="174" height="105" rx="16" fill="#090D16" stroke="#EAB308" stroke-width="2"/>
+  <circle cx="282" cy="126" r="20" fill="#1E293B" stroke="#EAB308" stroke-width="3"/>
+  <circle cx="282" cy="170" r="18" fill="#1E293B" stroke="#94A3B8" stroke-width="2"/>
+  <circle cx="322" cy="148" r="6" fill="#FEF08A"/>
+  <text x="378" y="155" text-anchor="middle" fill="#EAB308" font-family="sans-serif" font-size="16" font-weight="800">POCO</text>
+  <!-- Front Phone -->
+  <rect x="375" y="65" width="198" height="440" rx="28" fill="#090D16" stroke="#64748B" stroke-width="3"/>
+  <rect x="385" y="75" width="178" height="420" rx="22" fill="url(#pocoScreen)"/>
+  <circle cx="474" cy="92" r="5" fill="#090D16"/>
+  <text x="474" y="275" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="20" font-weight="800">POCO M6 PRO 5G</text>
+  <text x="474" y="300" text-anchor="middle" fill="#FDE047" font-family="sans-serif" font-size="12" font-weight="600">SNAPDRAGON 4 GEN 2</text>
+  <text x="400" y="555" text-anchor="middle" fill="#94A3B8" font-family="sans-serif" font-size="14" font-weight="600" letter-spacing="3">XIAOMI POCO · CERTIFIED PRE-OWNED</text>
+</svg>

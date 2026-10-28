@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#F4F4F0"/>
+  <rect x="280" y="160" width="240" height="260" rx="32" fill="#FFFFFF" stroke="#D4D4D8" stroke-width="4"/>
+  <!-- Prongs -->
+  <rect x="355" y="95" width="16" height="65" rx="6" fill="#71717A"/>
+  <rect x="429" y="95" width="16" height="65" rx="6" fill="#71717A"/>
+  <rect x="392" y="75" width="16" height="85" rx="6" fill="#52525B"/>
+  <!-- USB-C Port & Fast Charge Emblem -->
+  <rect x="370" y="340" width="60" height="22" rx="11" fill="#18181B"/>
+  <path d="M408 215L382 265H404L394 310L424 255H400L408 215Z" fill="#FF8618"/>
+  <text x="400" y="490" text-anchor="middle" fill="#27272A" font-family="sans-serif" font-size="18" font-weight="700" letter-spacing="1.5">20W USB-C PD FAST CHARGER</text>
+</svg>

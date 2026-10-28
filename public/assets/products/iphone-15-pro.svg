@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#18181B"/>
+  <circle cx="400" cy="300" r="240" fill="#FF8618" fill-opacity="0.08"/>
+  <!-- iPhone Pro Frame -->
+  <rect x="290" y="70" width="220" height="460" rx="38" fill="#27272A" stroke="#52525B" stroke-width="4"/>
+  <rect x="302" y="82" width="196" height="436" rx="30" fill="#09090B"/>
+  <!-- Camera Module -->
+  <rect x="314" y="96" width="88" height="88" rx="22" fill="#18181B" stroke="#3F3F46" stroke-width="2"/>
+  <circle cx="338" cy="120" r="16" fill="#09090B" stroke="#71717A" stroke-width="3"/>
+  <circle cx="338" cy="160" r="16" fill="#09090B" stroke="#71717A" stroke-width="3"/>
+  <circle cx="378" cy="140" r="16" fill="#09090B" stroke="#71717A" stroke-width="3"/>
+  <circle cx="378" cy="112" r="6" fill="#FDE68A"/>
+  <circle cx="378" cy="168" r="7" fill="#3F3F46"/>
+  <!-- Apple-style minimal emblem -->
+  <circle cx="400" cy="300" r="26" fill="#FF8618" fill-opacity="0.22"/>
+  <text x="400" y="475" text-anchor="middle" fill="#A1A1AA" font-family="sans-serif" font-size="15" font-weight="600" letter-spacing="2">NOBORUP CERTIFIED iPHONE</text>
+</svg>

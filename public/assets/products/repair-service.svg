@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#18181B"/>
+  <rect x="240" y="130" width="320" height="340" rx="28" fill="#27272A" stroke="#3F3F46" stroke-width="3"/>
+  <circle cx="400" cy="270" r="64" fill="#FF8618" fill-opacity="0.15" stroke="#FF8618" stroke-width="3"/>
+  <path d="M380 270L395 285L425 255" stroke="#FF8618" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="400" y="385" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="22" font-weight="700">NOBORUP CARE LAB</text>
+  <text x="400" y="418" text-anchor="middle" fill="#A1A1AA" font-family="sans-serif" font-size="15">Display · Battery · IC &amp; Board Servicing</text>
+</svg>

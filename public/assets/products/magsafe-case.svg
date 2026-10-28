@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#18181B"/>
+  <rect x="290" y="70" width="220" height="460" rx="40" fill="#27272A" stroke="#FF8618" stroke-width="4"/>
+  <rect x="312" y="92" width="90" height="90" rx="22" fill="#18181B" stroke="#FF8618" stroke-width="3"/>
+  <!-- MagSafe Ring -->
+  <circle cx="400" cy="310" r="68" stroke="#FF8618" stroke-width="10"/>
+  <rect x="395" y="392" width="10" height="36" rx="5" fill="#FF8618"/>
+  <text x="400" y="495" text-anchor="middle" fill="#E4E4E7" font-family="sans-serif" font-size="14" font-weight="600" letter-spacing="2">MAGSAFE ARMOR SERIES</text>
+</svg>

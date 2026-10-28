@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin-login
+Disallow: /checkout
+Disallow: /account
+
+Sitemap: https://noborup.com/sitemap.xml

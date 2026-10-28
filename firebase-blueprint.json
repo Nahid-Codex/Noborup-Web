@@ -1,0 +1,874 @@
+{
+  "entities": {
+    "AdminRecord": {
+      "title": "AdminRecord",
+      "description": "Authorized administrator registry record keyed by Firebase Auth UID.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Auth UID of the administrator"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "minLength": 3,
+          "maxLength": 160,
+          "description": "Verified administrator email address"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "super_admin"],
+          "maxLength": 32,
+          "description": "Administrative role level"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of role assignment"
+        }
+      },
+      "required": ["uid", "email", "role", "createdAt"]
+    },
+    "UserPublicProfile": {
+      "title": "UserPublicProfile",
+      "description": "Non-sensitive user profile data stored at /users/{userId}.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "photoURL": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "displayName", "photoURL", "createdAt", "updatedAt"]
+    },
+    "UserPrivateInfo": {
+      "title": "UserPrivateInfo",
+      "description": "Isolated PII data (email, phone, default delivery address) stored at /users/{userId}/private/{docId}.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "phone": {
+          "type": "string",
+          "maxLength": 30
+        },
+        "address": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "district": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "city": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "phone", "address", "district", "city", "updatedAt"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product and service categories managed by administrators.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "slug": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[a-z0-9\\-]+$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "imageURL": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "parentId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "sortOrder": {
+          "type": "number"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["name", "slug", "description", "imageURL", "parentId", "sortOrder", "isActive", "createdAt", "updatedAt"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Storefront product catalog item (new phones, used phones, accessories, smartwatches).",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 160
+        },
+        "slug": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 160,
+          "pattern": "^[a-z0-9\\-]+$"
+        },
+        "brand": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "categoryId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "categorySlug": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "description": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 4000
+        },
+        "price": {
+          "type": "number",
+          "description": "Selling price in BDT (৳)"
+        },
+        "compareAtPrice": {
+          "type": "number",
+          "description": "Original price before discount in BDT (৳)"
+        },
+        "condition": {
+          "type": "string",
+          "enum": ["New", "Used"],
+          "maxLength": 16
+        },
+        "sku": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 64
+        },
+        "stockQuantity": {
+          "type": "number"
+        },
+        "images": {
+          "type": "array",
+          "maxLength": 8,
+          "description": "Bounded list of up to 8 product image URLs"
+        },
+        "variants": {
+          "type": "array",
+          "maxLength": 10,
+          "description": "Bounded list of up to 10 color/storage variant labels"
+        },
+        "specifications": {
+          "type": "object",
+          "description": "Structured technical specifications and used-phone diagnostics"
+        },
+        "warrantyInfo": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "isFeatured": {
+          "type": "boolean"
+        },
+        "isNewArrival": {
+          "type": "boolean"
+        },
+        "isBestSeller": {
+          "type": "boolean"
+        },
+        "isSpecialOffer": {
+          "type": "boolean"
+        },
+        "isPublished": {
+          "type": "boolean"
+        },
+        "ratingAvg": {
+          "type": "number"
+        },
+        "ratingCount": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "name",
+        "slug",
+        "brand",
+        "categoryId",
+        "categorySlug",
+        "description",
+        "price",
+        "compareAtPrice",
+        "condition",
+        "sku",
+        "stockQuantity",
+        "images",
+        "variants",
+        "specifications",
+        "warrantyInfo",
+        "isFeatured",
+        "isNewArrival",
+        "isBestSeller",
+        "isSpecialOffer",
+        "isPublished",
+        "ratingAvg",
+        "ratingCount",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order record with validated totals and delivery tracking.",
+      "type": "object",
+      "properties": {
+        "orderNumber": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 40
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "customerName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "customerPhone": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 30
+        },
+        "customerEmail": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "deliveryAddress": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 400
+        },
+        "district": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "city": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "orderNotes": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "deliveryMethod": {
+          "type": "string",
+          "enum": ["Inside Meherpur", "Outside Meherpur (Courier)", "Store Pickup (Kedargonj Bazar)"],
+          "maxLength": 60
+        },
+        "itemCount": {
+          "type": "number"
+        },
+        "itemsSummary": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 1000
+        },
+        "subtotal": {
+          "type": "number"
+        },
+        "discount": {
+          "type": "number"
+        },
+        "couponCode": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "deliveryFee": {
+          "type": "number"
+        },
+        "total": {
+          "type": "number"
+        },
+        "paymentMethod": {
+          "type": "string",
+          "enum": ["Cash on Delivery", "bKash / Nagad Verification at Delivery"],
+          "maxLength": 60
+        },
+        "paymentStatus": {
+          "type": "string",
+          "enum": ["Unpaid", "Paid", "Refunded"],
+          "maxLength": 24
+        },
+        "orderStatus": {
+          "type": "string",
+          "enum": ["Pending", "Confirmed", "Processing", "Shipped", "Delivered", "Cancelled", "Refunded"],
+          "maxLength": 24
+        },
+        "cancellationReason": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "orderNumber",
+        "userId",
+        "customerName",
+        "customerPhone",
+        "customerEmail",
+        "deliveryAddress",
+        "district",
+        "city",
+        "orderNotes",
+        "deliveryMethod",
+        "itemCount",
+        "itemsSummary",
+        "subtotal",
+        "discount",
+        "couponCode",
+        "deliveryFee",
+        "total",
+        "paymentMethod",
+        "paymentStatus",
+        "orderStatus",
+        "cancellationReason",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "OrderItem": {
+      "title": "OrderItem",
+      "description": "Immutable snapshot of an individual purchased item stored at /orders/{orderId}/items/{itemId}.",
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "productId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "productName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "productImage": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "sku": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "selectedVariant": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "unitPrice": {
+          "type": "number"
+        },
+        "quantity": {
+          "type": "number"
+        },
+        "lineTotal": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "orderId",
+        "userId",
+        "productId",
+        "productName",
+        "productImage",
+        "sku",
+        "selectedVariant",
+        "unitPrice",
+        "quantity",
+        "lineTotal",
+        "createdAt"
+      ]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Moderated customer product review and showroom testimonial.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "customerName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "productId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "productName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "orderId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "rating": {
+          "type": "number"
+        },
+        "comment": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 1200
+        },
+        "imageURL": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "verifiedPurchase": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "approved", "rejected"],
+          "maxLength": 20
+        },
+        "adminReply": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "userId",
+        "customerName",
+        "productId",
+        "productName",
+        "orderId",
+        "rating",
+        "comment",
+        "imageURL",
+        "verifiedPurchase",
+        "status",
+        "adminReply",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "SocialVideo": {
+      "title": "SocialVideo",
+      "description": "Social media video entry (Facebook Reels, YouTube Shorts, TikTok) for Watch Noborup in Action.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 160
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["Facebook Reel", "YouTube Short", "TikTok"],
+          "maxLength": 30
+        },
+        "videoURL": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 600
+        },
+        "thumbnailURL": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "productId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "sortOrder": {
+          "type": "number"
+        },
+        "isPublished": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "title",
+        "platform",
+        "videoURL",
+        "thumbnailURL",
+        "productId",
+        "sortOrder",
+        "isPublished",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "WishlistItem": {
+      "title": "WishlistItem",
+      "description": "Customer saved wishlist item keyed by userId_productId.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "productId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["userId", "productId", "createdAt"]
+    },
+    "ServiceBooking": {
+      "title": "ServiceBooking",
+      "description": "Mobile servicing and repair appointment request.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "customerName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "customerPhone": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 30
+        },
+        "deviceModel": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "serviceType": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "issueDescription": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 800
+        },
+        "preferredDate": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 40
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Pending", "Confirmed", "In Repair", "Completed", "Cancelled"],
+          "maxLength": 30
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "userId",
+        "customerName",
+        "customerPhone",
+        "deviceModel",
+        "serviceType",
+        "issueDescription",
+        "preferredDate",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "StoreSettings": {
+      "title": "StoreSettings",
+      "description": "Global store configuration, contact information, policies, and delivery fees.",
+      "type": "object",
+      "properties": {
+        "storeName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "logoURL": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "announcementText": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "heroHeadline": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "heroSubtext": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "contactPhone": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "secondaryPhone": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "whatsappNumber": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "contactEmail": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "address": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "openingHours": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "facebookURL": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "youtubeURL": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "tiktokURL": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "insideMeherpurFee": {
+          "type": "number"
+        },
+        "outsideMeherpurFee": {
+          "type": "number"
+        },
+        "freeDeliveryThreshold": {
+          "type": "number"
+        },
+        "shippingPolicy": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "returnPolicy": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "warrantyPolicy": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "storeName",
+        "logoURL",
+        "announcementText",
+        "heroHeadline",
+        "heroSubtext",
+        "contactPhone",
+        "secondaryPhone",
+        "whatsappNumber",
+        "contactEmail",
+        "address",
+        "openingHours",
+        "facebookURL",
+        "youtubeURL",
+        "tiktokURL",
+        "insideMeherpurFee",
+        "outsideMeherpurFee",
+        "freeDeliveryThreshold",
+        "shippingPolicy",
+        "returnPolicy",
+        "warrantyPolicy",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminRecord" },
+      "description": "Trusted administrator UID lookup table."
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserPublicProfile" },
+      "description": "Public profile information for registered customers."
+    },
+    "/users/{userId}/private/{docId}": {
+      "schema": { "$ref": "#/entities/UserPrivateInfo" },
+      "description": "Isolated private PII (email, phone, address) for each customer."
+    },
+    "/categories/{categoryId}": {
+      "schema": { "$ref": "#/entities/Category" },
+      "description": "Product and service categories."
+    },
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Master product catalog."
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Customer order headers."
+    },
+    "/orders/{orderId}/items/{itemId}": {
+      "schema": { "$ref": "#/entities/OrderItem" },
+      "description": "Individual order line item snapshots."
+    },
+    "/reviews/{reviewId}": {
+      "schema": { "$ref": "#/entities/Review" },
+      "description": "Moderated customer product reviews and showroom testimonials."
+    },
+    "/videos/{videoId}": {
+      "schema": { "$ref": "#/entities/SocialVideo" },
+      "description": "Social media video reels and shorts."
+    },
+    "/wishlists/{wishlistId}": {
+      "schema": { "$ref": "#/entities/WishlistItem" },
+      "description": "Per-user saved wishlist items."
+    },
+    "/serviceBookings/{bookingId}": {
+      "schema": { "$ref": "#/entities/ServiceBooking" },
+      "description": "Mobile repair and servicing booking requests."
+    },
+    "/storeSettings/{settingId}": {
+      "schema": { "$ref": "#/entities/StoreSettings" },
+      "description": "Global store branding, contact info, delivery rates, and policies."
+    }
+  }
+}
